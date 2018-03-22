@@ -1,6 +1,4 @@
-# Youtube Clone
-
-## YouTube Clone Homework
+# Youtube Clone Homework
 
 ### Description
 For this homework you will finally be working with "live" data from an actual API - Youtube!
@@ -13,7 +11,7 @@ The current website in this repo is not fully functional and does not use live d
 1. Use [Postman](https://www.getpostman.com/) to test your API key and queries before you begin coding. **Be sure that you can actually get data in Postman first!**
 1. Read over the code in this repo and see how it works with the fake data provided.
 1. Add comments to the code explaining how every part works to show that you know what is going on
-1. Copy and paste the below into a `config.js` file in your folder. Make sure it is ignored by git.
+1. Copy and paste the below into a `config.js` file in your folder. Make sure it is ignored by git and loaded into your page correctly!
 
 ```javascript
 // your youtube API key will live here
