@@ -1,4 +1,4 @@
-var fakeData = {
+window.fakeData = {
     kind: 'youtube#searchListResponse',
     etag: '"RmznBCICv9YtgWaaa_nWDIH1_GM/mgh88STlnOM2rqKb1sCj00eacpM"',
     nextPageToken: 'CA8QAA',
