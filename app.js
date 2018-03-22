@@ -1,5 +1,14 @@
 'use strict';
 
+function searchYoutube(query) {
+    // fetch search results from youtube!
+}
+
+function clearHTML() {
+    document.getElementById('search-results').innerHTML = '';
+    document.getElementById('video-page').innerHTML = '';
+}
+
 function generateSearchResultCard(index, thumbnailURL, videoTitle, videoDescription) {
     var card = document.createElement('div');
     var thumbnail = document.createElement('img');
@@ -21,13 +30,43 @@ function generateSearchResultCard(index, thumbnailURL, videoTitle, videoDescript
     return card;
 }
 
-function searchYoutube(query) {
-    // fetch search results from youtube!
+function generateIframe(source) {
+    var iframe = document.createElement('iframe');
+
+    iframe.width = 608;
+    iframe.height = 342;
+    iframe.src = source;
+
+    return iframe;
 }
 
-function clearHTML() {
-    document.getElementById('search-results').innerHTML = '';
-    document.getElementById('video-page').innerHTML = '';
+function generateHomeButton() {
+    var homeButton = document.createElement('button');
+
+    homeButton.id = 'home-button';
+    homeButton.innerText = 'Back to Homepage';
+
+    return homeButton;
+}
+
+function generateVideoInfo(title, channel, description) {
+    var videoInfoDiv = document.createElement('div');
+    var titleDiv = document.createElement('div');
+    var channelDiv = document.createElement('div');
+    var descriptionDiv = document.createElement('div');
+    
+    videoInfoDiv.id = 'video-info';
+    titleDiv.id = 'video-title';
+    channelDiv.id = 'video-channel';
+    descriptionDiv.id = 'video-description';
+
+    titleDiv.innerText = title;
+    channelDiv.innerText = channel;
+    descriptionDiv.innerText = description;
+
+    videoInfoDiv.append(titleDiv, channelDiv, descriptionDiv);
+
+    return videoInfoDiv;
 }
 
 function addHomePageListeners() {
@@ -75,33 +114,12 @@ function renderVideoPage(index) {
     document.getElementById('search-results').style.display = 'none';
 
     var videoPlayer = document.getElementById('video-page');
-    var iframe = document.createElement('iframe');
-    var homeButton = document.createElement('button');
 
-    var videoInfo = document.createElement('div');
-    videoInfo.id = 'video-info';
-
-    var title = document.createElement('div');
-    var channel = document.createElement('div');
-    var description = document.createElement('div');
-
-    title.id = 'video-title';
-    channel.id = 'video-channel';
-    description.id = 'video-description';
+    var thorDescription = 'Thor: Ragnarok Darryl Short - Grandmaster Moves To Earth (2017) Jeff Goldblum Movie HD Subscribe for more official Trailers, TV Spots, Movie Clips, Featurettes and exclusive content!';
+    var iframe = generateIframe('http://www.youtube.com/embed/xLvkFer6aOY');
+    var homeButton = generateHomeButton();
+    var videoInfo = generateVideoInfo('Title', 'Channel', thorDescription);
     
-
-    iframe.width = 608;
-    iframe.height = 342;
-    iframe.src = 'http://www.youtube.com/embed/' + 'xLvkFer6aOY';
-
-    homeButton.innerText = 'Back to Homepage';
-    homeButton.id = 'home-button';
-
-    title.innerText = 'Title';
-    channel.innerText = 'Channel';
-    description.innerText = 'Thor: Ragnarok Darryl Short - Grandmaster Moves To Earth (2017) Jeff Goldblum Movie HD Subscribe for more official Trailers, TV Spots, Movie Clips, Featurettes and exclusive content!';
-
-    videoInfo.append(title, channel, description);
     videoPlayer.append(iframe, videoInfo, homeButton);
 
     addVideoPageListeners();
