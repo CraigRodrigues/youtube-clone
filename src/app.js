@@ -85,7 +85,7 @@ function renderHomePage() {
     clearHTML();
 
     // show search bar and results
-    document.getElementById('search-bar').style.display = 'block';
+    document.getElementById('search-bar').style.display = 'flex';
     document.getElementById('search-results').style.display = 'grid';
     
     var searchResults = document.getElementById('search-results');
@@ -125,4 +125,5 @@ function renderVideoPage(index) {
     addVideoPageListeners();
 }
 
+// start on the homepage
 renderHomePage();
