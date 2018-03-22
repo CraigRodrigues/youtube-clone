@@ -68,7 +68,7 @@ function generateSearchResultCard(index, thumbnailURL, videoTitle, videoDescript
 }
 
 function searchYoutube(query) {
-    // return array of search result
+    // fetch search results from youtube!
 }
 
 function clearHTML() {
@@ -95,16 +95,20 @@ function addHomePageListeners() {
 }
 
 function addVideoPageListeners() {
-    document.getElementById('home-button')
-        .addEventListener('click', function(event) {
-            renderHomePage();
-        });
+    var homeButton = document.getElementById('home-button');
+    
+    homeButton.addEventListener('click', function(event) {
+        renderHomePage();
+    });
 }
 
 function renderHomePage() {
     clearHTML();
 
+    // show search bar and results
     document.getElementById('search-bar').style.display = 'block';
+    document.getElementById('search-results').style.display = 'grid';
+    
     var resultsContainer = document.getElementById('search-results');
     var video = fakeData.items[0];
     var id = video.id.videoId;
@@ -112,6 +116,8 @@ function renderHomePage() {
     var title = video.snippet.title;
     var description = video.snippet.description;
 
+    // change this to render the top 15 results from youtube
+    // do not use a regular for loop!
     for (var i = 0; i < 15; i++) {
         var video = generateSearchResultCard(i, thumbnail, title, description);
 
@@ -124,13 +130,16 @@ function renderHomePage() {
 function renderVideoPage(index) {
     clearHTML();
 
+    // hide search bar and search results
     document.getElementById('search-bar').style.display = 'none';
+    document.getElementById('search-results').style.display = 'none';
+
     var videoPlayer = document.getElementById('video-page');
     var iframe = document.createElement('iframe');
     var homeButton = document.createElement('button');
 
-    iframe.width = 560;
-    iframe.height = 315;
+    iframe.width = 800;
+    iframe.height = 450;
     iframe.src = 'http://www.youtube.com/embed/' + fakeData.items[0].id.videoId;
 
     homeButton.innerText = 'Back to Homepage';

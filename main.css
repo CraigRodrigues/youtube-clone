@@ -20,13 +20,18 @@ iframe {
 }
 
 #search-bar {
-    margin-bottom: 20px;
+    margin-bottom: 4em;
+}
+
+#logo > img {
+    margin: -2.5em;
 }
 
 #search-results {
     display: grid;
     grid-template-columns: repeat(3, 350px);
     grid-template-rows: repeat(5, 350px);
+    grid-gap: 10px;
 }
 
 #video-page {
