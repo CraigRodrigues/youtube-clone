@@ -1,7 +1,7 @@
 'use strict';
 
 function searchYoutube(query) {
-    // fetch search results from youtube!
+    // fetch search results from youtube! Make sure to use your API key.
 }
 
 function clearHTML() {
@@ -73,7 +73,7 @@ function generateVideoInfo(title, channel, description) {
 function addHomePageListeners() {
     var searchResults = document.getElementById('search-results');
 
-    // modify this listener to render the correct video in the videopage
+    // you will need modify this listener to correctly use renderVideoPage
     searchResults.addEventListener('click', function(event) {
         if (event.target.className === 'thumbnail' || event.target.className === 'title') {
             renderVideoPage();
@@ -110,6 +110,7 @@ function renderHomePage() {
     addHomePageListeners();
 }
 
+// you will need to edit this function to make use of an index
 function renderVideoPage(index) {
     clearHTML();
 
