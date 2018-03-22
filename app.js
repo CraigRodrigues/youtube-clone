@@ -9,25 +9,25 @@ function clearHTML() {
     document.getElementById('video-page').innerHTML = '';
 }
 
-function generateSearchResultCard(index, thumbnailURL, videoTitle, videoDescription) {
-    var card = document.createElement('div');
-    var thumbnail = document.createElement('img');
-    var title = document.createElement('div');
-    var description = document.createElement('div');
+function generateSearchResultCard(index, thumbnailURL, title, description) {
+    var cardDiv = document.createElement('div');
+    var thumbnailImg = document.createElement('img');
+    var titleDiv = document.createElement('div');
+    var descriptionDiv = document.createElement('div');
 
-    thumbnail.src = thumbnailURL;
+    thumbnailImg.src = thumbnailURL;
 
-    title.innerText = videoTitle;
-    title.className = 'title';
-    title.id = index;
+    titleDiv.innerText = title;
+    titleDiv.className = 'title';
+    titleDiv.id = index;
 
-    description.innerText = videoDescription;
-    description.className = 'description';
+    descriptionDiv.innerText = description;
+    descriptionDiv.className = 'description';
 
-    card.className = 'video-result';
-    card.append(thumbnail, title, description);
+    cardDiv.className = 'video-result';
+    cardDiv.append(thumbnailImg, titleDiv, descriptionDiv);
 
-    return card;
+    return cardDiv;
 }
 
 function generateIframe(source) {
@@ -88,7 +88,7 @@ function renderHomePage() {
     document.getElementById('search-bar').style.display = 'block';
     document.getElementById('search-results').style.display = 'grid';
     
-    var resultsContainer = document.getElementById('search-results');
+    var searchResults = document.getElementById('search-results');
     var video = fakeData.items[0];
 
     var thumbnail = video.snippet.thumbnails.medium.url;
@@ -100,7 +100,7 @@ function renderHomePage() {
     for (var i = 0; i < 15; i++) {
         var video = generateSearchResultCard(i, thumbnail, title, description);
 
-        resultsContainer.appendChild(video);
+        searchResults.appendChild(video);
     }
 
     addHomePageListeners();
