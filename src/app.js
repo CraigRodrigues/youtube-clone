@@ -16,6 +16,7 @@ function generateSearchResultCard(index, thumbnailURL, title, description) {
     var descriptionDiv = document.createElement('div');
 
     thumbnailImg.src = thumbnailURL;
+    thumbnailImg.className = 'thumbnail';
 
     titleDiv.innerText = title;
     titleDiv.className = 'title';
@@ -72,8 +73,11 @@ function generateVideoInfo(title, channel, description) {
 function addHomePageListeners() {
     var searchResults = document.getElementById('search-results');
 
+    // modify this listener to render the correct video in the videopage
     searchResults.addEventListener('click', function(event) {
-        renderVideoPage();
+        if (event.target.className === 'thumbnail' || event.target.className === 'title') {
+            renderVideoPage();
+        }
     });
 }
 
