@@ -20,11 +20,11 @@ function generateSearchResultCard(index, thumbnailURL, title, description) {
 
     titleDiv.innerText = title;
     titleDiv.className = 'title';
-    titleDiv.id = index;
-
+    
     descriptionDiv.innerText = description;
     descriptionDiv.className = 'description';
-
+    
+    cardDiv.id = index;
     cardDiv.className = 'video-result';
     cardDiv.append(thumbnailImg, titleDiv, descriptionDiv);
 
