@@ -80,26 +80,12 @@ function addHomePageListeners() {
     var searchResults = document.getElementById('search-results');
 
     searchResults.addEventListener('click', function(event) {
-        var videoIndex = null;
-
-        if (event.target.tagName === 'IMG') {
-            videoIndex = event.target.nextElementSibling.id;
-        } else if (event.target.className === 'title') {
-            videoIndex = event.target.id;
-        }
-
-        if (videoIndex) {
-            renderVideoPage(videoIndex);
-        }
+        renderVideoPage();
     });
 }
 
 function addVideoPageListeners() {
-    var homeButton = document.getElementById('home-button');
-    
-    homeButton.addEventListener('click', function(event) {
-        renderHomePage();
-    });
+    // your code here
 }
 
 function renderHomePage() {
@@ -138,14 +124,31 @@ function renderVideoPage(index) {
     var iframe = document.createElement('iframe');
     var homeButton = document.createElement('button');
 
-    iframe.width = 800;
-    iframe.height = 450;
+    var videoInfo = document.createElement('div');
+    videoInfo.id = 'video-info';
+
+    var title = document.createElement('div');
+    var channel = document.createElement('div');
+    var description = document.createElement('div');
+
+    title.id = 'video-title';
+    channel.id = 'video-channel';
+    description.id = 'video-description';
+    
+
+    iframe.width = 608;
+    iframe.height = 342;
     iframe.src = 'http://www.youtube.com/embed/' + fakeData.items[0].id.videoId;
 
     homeButton.innerText = 'Back to Homepage';
     homeButton.id = 'home-button';
 
-    videoPlayer.append(iframe, homeButton);
+    title.innerText = 'Title';
+    channel.innerText = 'Channel';
+    description.innerText = 'Thor: Ragnarok Darryl Short - Grandmaster Moves To Earth (2017) Jeff Goldblum Movie HD Subscribe for more official Trailers, TV Spots, Movie Clips, Featurettes and exclusive content!';
+
+    videoInfo.append(title, channel, description);
+    videoPlayer.append(iframe, videoInfo, homeButton);
 
     addVideoPageListeners();
 }

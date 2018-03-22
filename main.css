@@ -17,6 +17,7 @@ input {
 iframe {
     margin: 10px;
     border: 2px solid rgb(51, 46, 46);
+    align-self: center;
 }
 
 #search-bar {
@@ -24,7 +25,8 @@ iframe {
 }
 
 #logo > img {
-    margin: -2.5em;
+    cursor: pointer;
+    margin: -1.5em;
 }
 
 #search-results {
@@ -62,6 +64,29 @@ iframe {
 #home-button:hover {
     background-color: #fff;
     color: #e32a28;
+}
+
+#video-info {
+    width: 650px;
+    margin: 1em;
+}
+
+#video-title {
+    font-weight: bold;
+    font-size: 1.75em;
+    margin-bottom: 0.2em;
+}
+
+#video-channel {
+    font-size: 1.25em;
+    margin-bottom: 1em;
+}
+
+#video-description {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 10;
+    -webkit-box-orient: vertical; 
 }
 
 .video-result > img {
