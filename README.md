@@ -32,4 +32,4 @@ window.API_KEY = 'your api key goes here';
 1. Make it so the search automatically happens as a user types, so they no longer need to hit enter (research how to limit the number of AJAX calls to youtube so you don’t go over the API call rate limit and get blocked!)
 1. **BONUS:** Show some kind of indicator that a search is working/loading with a spinner or “Loading…”
 1. **BONUS:** Add a button that will show the current trending (mostPopular) videos for the United States
-1. **HARDCORE:** Refactor the code for the homepage and videopage navigation to make use of HTML5's `history.pushState`, and no longer use the index in the renderVideoPage function and instead make us of the `pageState` object. Come up with your own url naming convention.
+1. **HARDCORE:** Refactor the code for the homepage and videopage navigation to make use of HTML5's `history.pushState`, and no longer use the index in the `renderVideoPage` function and instead make us of the `pageState` object. Come up with your own url naming convention.
