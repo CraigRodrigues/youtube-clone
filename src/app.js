@@ -9,25 +9,6 @@ const clearHTML = () => {
     document.getElementById('video-page').innerHTML = '';
 }
 
-const generateIframe = (source) => {
-    const iframe = document.createElement('iframe');
-
-    iframe.width = 608;
-    iframe.height = 342;
-    iframe.src = source;
-
-    return iframe;
-}
-
-const generateHomeButton = () => {
-    const homeButton = document.createElement('button');
-
-    homeButton.id = 'home-button';
-    homeButton.innerText = 'Back to Homepage';
-
-    return homeButton;
-}
-
 const generateSearchResultCards = (videos) => {
     return videos.map((video, index) => {
         return `
@@ -40,24 +21,16 @@ const generateSearchResultCards = (videos) => {
     });
 }
 
-const generateVideoInfo = ({ title, channel, description }) => {
-    var videoInfoDiv = document.createElement('div');
-    var titleDiv = document.createElement('div');
-    var channelDiv = document.createElement('div');
-    var descriptionDiv = document.createElement('div');
-    
-    videoInfoDiv.id = 'video-info';
-    titleDiv.id = 'video-title';
-    channelDiv.id = 'video-channel';
-    descriptionDiv.id = 'video-description';
-
-    titleDiv.innerText = title;
-    channelDiv.innerText = channel;
-    descriptionDiv.innerText = description;
-
-    videoInfoDiv.append(titleDiv, channelDiv, descriptionDiv);
-
-    return videoInfoDiv;
+const generateVideoPageHTML = ({ url, title, channel, description }) => {
+    return `
+        <iframe width="608" height="342" src="${url}"></iframe>
+        <div id="video-info">
+            <div id="video-title">${title}</div>
+            <div id="video-channel">${channel}</div>
+            <div id="video-description">${description}</div>
+        </div>
+        <button id="home-button">Back to Homepage</button>
+    `
 }
 
 const addHomePageListeners = () => {
@@ -81,13 +54,10 @@ const renderHomePage = () => {
     // show search bar and results
     document.getElementById('search-bar').style.display = 'flex';
     document.getElementById('search-results').style.display = 'grid';
-    
-    const searchResults = document.getElementById('search-results');
-    const videoArray = Array(15);
 
-    videoArray.fill(fakeData.items[0]);
-    searchResults.innerHTML = generateSearchResultCards(videoArray).join('');
+    let videoArray = Array(15).fill(fakeData.items[0]);
 
+    document.getElementById('search-results').innerHTML = generateSearchResultCards(videoArray).join('');
     addHomePageListeners();
 }
 
@@ -99,15 +69,12 @@ const renderVideoPage = (index) => {
     document.getElementById('search-bar').style.display = 'none';
     document.getElementById('search-results').style.display = 'none';
 
-    const videoPage = document.getElementById('video-page');
-
-    let thorDescription = 'Thor: Ragnarok Darryl Short - Grandmaster Moves To Earth (2017) Jeff Goldblum Movie HD Subscribe for more official Trailers, TV Spots, Movie Clips, Featurettes and exclusive content!';
-    let iframe = generateIframe('http://www.youtube.com/embed/xLvkFer6aOY');
-    let homeButton = generateHomeButton();
-    let videoInfo = generateVideoInfo({ title: 'Title', channel: 'Channel', description: thorDescription });
+    let url = 'http://www.youtube.com/embed/xLvkFer6aOY';
+    let title = 'Title';
+    let channel = 'Channel';
+    let description = 'Thor: Ragnarok Darryl Short - Grandmaster Moves To Earth (2017) Jeff Goldblum Movie HD Subscribe for more official Trailers, TV Spots, Movie Clips, Featurettes and exclusive content!';
     
-    videoPage.append(iframe, videoInfo, homeButton);
-
+    document.getElementById('video-page').innerHTML = generateVideoPageHTML({ url, title, channel, description });
     addVideoPageListeners();
 }
 
