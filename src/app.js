@@ -1,19 +1,19 @@
 'use strict';
 
-function searchYoutube(query) {
+const searchYoutube = (query) => {
     // fetch search results from youtube! Make sure to use your API key.
 }
 
-function clearHTML() {
+const clearHTML = () => {
     document.getElementById('search-results').innerHTML = '';
     document.getElementById('video-page').innerHTML = '';
 }
 
-function generateSearchResultCard(index, thumbnailURL, title, description) {
-    var cardDiv = document.createElement('div');
-    var thumbnailImg = document.createElement('img');
-    var titleDiv = document.createElement('div');
-    var descriptionDiv = document.createElement('div');
+const generateSearchResultCard = ({ index, thumbnailURL, title, description }) => {
+    const cardDiv = document.createElement('div');
+    const thumbnailImg = document.createElement('img');
+    const titleDiv = document.createElement('div');
+    const descriptionDiv = document.createElement('div');
 
     thumbnailImg.src = thumbnailURL;
     thumbnailImg.className = 'thumbnail';
@@ -31,8 +31,8 @@ function generateSearchResultCard(index, thumbnailURL, title, description) {
     return cardDiv;
 }
 
-function generateIframe(source) {
-    var iframe = document.createElement('iframe');
+const generateIframe = (source) => {
+    const iframe = document.createElement('iframe');
 
     iframe.width = 608;
     iframe.height = 342;
@@ -41,8 +41,8 @@ function generateIframe(source) {
     return iframe;
 }
 
-function generateHomeButton() {
-    var homeButton = document.createElement('button');
+const generateHomeButton = () => {
+    const homeButton = document.createElement('button');
 
     homeButton.id = 'home-button';
     homeButton.innerText = 'Back to Homepage';
@@ -50,7 +50,7 @@ function generateHomeButton() {
     return homeButton;
 }
 
-function generateVideoInfo(title, channel, description) {
+const generateVideoInfo = ({ title, channel, description }) => {
     var videoInfoDiv = document.createElement('div');
     var titleDiv = document.createElement('div');
     var channelDiv = document.createElement('div');
@@ -70,7 +70,7 @@ function generateVideoInfo(title, channel, description) {
     return videoInfoDiv;
 }
 
-function addHomePageListeners() {
+const addHomePageListeners = () => {
     var searchResults = document.getElementById('search-results');
 
     // you will need modify this listener to correctly use renderVideoPage
@@ -81,28 +81,28 @@ function addHomePageListeners() {
     });
 }
 
-function addVideoPageListeners() {
+const addVideoPageListeners = () => {
     // your code here
 }
 
-function renderHomePage() {
+const renderHomePage = () => {
     clearHTML();
 
     // show search bar and results
     document.getElementById('search-bar').style.display = 'flex';
     document.getElementById('search-results').style.display = 'grid';
     
-    var searchResults = document.getElementById('search-results');
-    var video = fakeData.items[0];
+    const searchResults = document.getElementById('search-results');
+    const video = fakeData.items[0];
 
-    var thumbnail = video.snippet.thumbnails.medium.url;
-    var title = video.snippet.title;
-    var description = video.snippet.description;
+    let thumbnail = video.snippet.thumbnails.medium.url;
+    let title = video.snippet.title;
+    let description = video.snippet.description;
 
     // change this to render the top 15 results from youtube
     // do not use a regular for loop!
-    for (var i = 0; i < 15; i++) {
-        var video = generateSearchResultCard(i, thumbnail, title, description);
+    for (let i = 0; i < 15; i++) {
+        let video = generateSearchResultCard({ index: i, thumbnailURL: thumbnail, title, description });
 
         searchResults.appendChild(video);
     }
@@ -111,19 +111,19 @@ function renderHomePage() {
 }
 
 // you will need to edit this function to make use of an index
-function renderVideoPage(index) {
+const renderVideoPage = (index) => {
     clearHTML();
 
     // hide search bar and search results
     document.getElementById('search-bar').style.display = 'none';
     document.getElementById('search-results').style.display = 'none';
 
-    var videoPage = document.getElementById('video-page');
+    const videoPage = document.getElementById('video-page');
 
-    var thorDescription = 'Thor: Ragnarok Darryl Short - Grandmaster Moves To Earth (2017) Jeff Goldblum Movie HD Subscribe for more official Trailers, TV Spots, Movie Clips, Featurettes and exclusive content!';
-    var iframe = generateIframe('http://www.youtube.com/embed/xLvkFer6aOY');
-    var homeButton = generateHomeButton();
-    var videoInfo = generateVideoInfo('Title', 'Channel', thorDescription);
+    let thorDescription = 'Thor: Ragnarok Darryl Short - Grandmaster Moves To Earth (2017) Jeff Goldblum Movie HD Subscribe for more official Trailers, TV Spots, Movie Clips, Featurettes and exclusive content!';
+    let iframe = generateIframe('http://www.youtube.com/embed/xLvkFer6aOY');
+    let homeButton = generateHomeButton();
+    let videoInfo = generateVideoInfo({ title: 'Title', channel: 'Channel', description: thorDescription });
     
     videoPage.append(iframe, videoInfo, homeButton);
 
