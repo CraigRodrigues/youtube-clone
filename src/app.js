@@ -43,11 +43,12 @@ const generateVideoPageHTML = ({ url, title, channel, description }) => {
 }
 
 const addHomePageListeners = () => {
-    var searchResults = document.getElementById('search-results');
-    var searchInput = document.querySelector('input');
+    const searchResults = document.getElementById('search-results');
+    const searchInput = document.querySelector('input');
+    const logo = document.getElementById('logo');
 
-    document.getElementById('logo')
-        .addEventListener('click', event => {
+    
+    logo.addEventListener('click', event => {
             let query = document.querySelector('input').value;
 
             searchYoutube(query);
