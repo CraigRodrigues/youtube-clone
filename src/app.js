@@ -1,9 +1,5 @@
 'use strict';
 
-const searchYoutube = (query) => {
-    // fetch search results from youtube! Make sure to use your API key.
-}
-
 const clearHTML = () => {
     document.getElementById('search-results').innerHTML = '';
     document.getElementById('video-page').innerHTML = '';
@@ -35,6 +31,13 @@ const generateVideoPageHTML = ({ url, title, channel, description }) => {
 
 const addHomePageListeners = () => {
     var searchResults = document.getElementById('search-results');
+    var searchInput = document.querySelector('input');
+
+    searchInput.addEventListener('keypress', event => {
+        if (event.which === 13) {
+            searchYoutube(searchInput.value)
+        }
+    });
 
     // you will need modify this listener to correctly use renderVideoPage
     searchResults.addEventListener('click', function(event) {
@@ -48,17 +51,23 @@ const addVideoPageListeners = () => {
     // your code here
 }
 
-const renderHomePage = () => {
+const renderHomePage = (query, searchResults) => {
     clearHTML();
 
     // show search bar and results
     document.getElementById('search-bar').style.display = 'flex';
     document.getElementById('search-results').style.display = 'grid';
+    document.getElementById('search-results').innerHTML = generateSearchResultCards(searchResults).join('');
 
-    let videoArray = Array(15).fill(fakeData.items[0]);
-
-    document.getElementById('search-results').innerHTML = generateSearchResultCards(videoArray).join('');
     addHomePageListeners();
+}
+
+const searchYoutube = (query) => {
+    // fetch search results from youtube! Make sure to use your API key.
+    fetch(`https://www.googleapis.com/youtube/v3/search?q=${query}&maxResults=15&part=snippet&key=${API_KEY}`)
+        .then(res => res.json())
+        .then(data => renderHomePage(query, data.items))
+        .catch(err => console.error(err));
 }
 
 // you will need to edit this function to make use of an index
@@ -68,6 +77,9 @@ const renderVideoPage = (index) => {
     // hide search bar and search results
     document.getElementById('search-bar').style.display = 'none';
     document.getElementById('search-results').style.display = 'none';
+    
+    // it is good practice to remove event listeners if the element is just hidden
+    // document.querySelector('input').removeEventListener('keypress', func);
 
     let url = 'http://www.youtube.com/embed/xLvkFer6aOY';
     let title = 'Title';
@@ -78,5 +90,10 @@ const renderVideoPage = (index) => {
     addVideoPageListeners();
 }
 
+const init = (query) => {
+    searchYoutube(query);
+    document.querySelector('input').value = query;
+}
+
 // start on the homepage
-renderHomePage();
+init('Infinity War Trailer');
