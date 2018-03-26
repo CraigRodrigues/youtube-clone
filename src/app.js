@@ -2,7 +2,7 @@
 
 let videos = [];
 
-function searchYoutube(query = 'Infinity War Trailer') {
+function searchYoutube(query = '') {
     // fetch search results from youtube! Make sure to use your API key.
     fetch(`https://www.googleapis.com/youtube/v3/search?q=${query}&maxResults=15&part=snippet&key=${API_KEY}`)
         .then(res => res.json())
