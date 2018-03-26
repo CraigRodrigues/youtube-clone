@@ -2,6 +2,17 @@
 
 let videos = [];
 
+function searchYoutube(query) {
+    // fetch search results from youtube! Make sure to use your API key.
+    fetch(`https://www.googleapis.com/youtube/v3/search?q=${query}&maxResults=15&part=snippet&key=${API_KEY}`)
+        .then(res => res.json())
+        .then(data => {
+            videos = data.items;
+            renderHomePage(query, data.items)
+        })
+        .catch(err => console.error(err));
+}
+
 const clearHTML = () => {
     document.getElementById('search-results').innerHTML = '';
     document.getElementById('video-page').innerHTML = '';
@@ -35,6 +46,13 @@ const addHomePageListeners = () => {
     var searchResults = document.getElementById('search-results');
     var searchInput = document.querySelector('input');
 
+    document.getElementById('logo')
+        .addEventListener('click', event => {
+            let query = document.querySelector('input').value;
+
+            searchYoutube(query);
+        });
+
     searchInput.addEventListener('keypress', event => {
         if (event.which === 13) {
             searchYoutube(searchInput.value)
@@ -50,7 +68,12 @@ const addHomePageListeners = () => {
 }
 
 const addVideoPageListeners = () => {
-    // your code here
+    document.getElementById('home-button')
+        .addEventListener('click', event => {
+            let query = document.querySelector('input').value;
+
+            searchYoutube(query);
+        });
 }
 
 const renderHomePage = (query, searchResults) => {
@@ -62,17 +85,6 @@ const renderHomePage = (query, searchResults) => {
     document.getElementById('search-results').innerHTML = generateSearchResultCards(searchResults).join('');
 
     addHomePageListeners();
-}
-
-const searchYoutube = (query) => {
-    // fetch search results from youtube! Make sure to use your API key.
-    fetch(`https://www.googleapis.com/youtube/v3/search?q=${query}&maxResults=15&part=snippet&key=${API_KEY}`)
-        .then(res => res.json())
-        .then(data => {
-            videos = data.items;
-            renderHomePage(query, data.items)
-        })
-        .catch(err => console.error(err));
 }
 
 // you will need to edit this function to make use of an index
