@@ -9,28 +9,6 @@ const clearHTML = () => {
     document.getElementById('video-page').innerHTML = '';
 }
 
-const generateSearchResultCard = ({ index, thumbnailURL, title, description }) => {
-    const cardDiv = document.createElement('div');
-    const thumbnailImg = document.createElement('img');
-    const titleDiv = document.createElement('div');
-    const descriptionDiv = document.createElement('div');
-
-    thumbnailImg.src = thumbnailURL;
-    thumbnailImg.className = 'thumbnail';
-
-    titleDiv.innerText = title;
-    titleDiv.className = 'title';
-    
-    descriptionDiv.innerText = description;
-    descriptionDiv.className = 'description';
-    
-    cardDiv.id = index;
-    cardDiv.className = 'video-result';
-    cardDiv.append(thumbnailImg, titleDiv, descriptionDiv);
-
-    return cardDiv;
-}
-
 const generateIframe = (source) => {
     const iframe = document.createElement('iframe');
 
@@ -48,6 +26,18 @@ const generateHomeButton = () => {
     homeButton.innerText = 'Back to Homepage';
 
     return homeButton;
+}
+
+const generateSearchResultCards = (videos) => {
+    return videos.map((video, index) => {
+        return `
+            <div id="${index}" class="video-result">
+                <img src="${video.snippet.thumbnails.medium.url}" class="thumbnail">
+                <div class="title">${video.snippet.title}</div>
+                <div class="description">${video.snippet.description}</div>
+            </div>
+        `
+    });
 }
 
 const generateVideoInfo = ({ title, channel, description }) => {
@@ -93,19 +83,10 @@ const renderHomePage = () => {
     document.getElementById('search-results').style.display = 'grid';
     
     const searchResults = document.getElementById('search-results');
-    const video = fakeData.items[0];
+    const videoArray = Array(15);
 
-    let thumbnail = video.snippet.thumbnails.medium.url;
-    let title = video.snippet.title;
-    let description = video.snippet.description;
-
-    // change this to render the top 15 results from youtube
-    // do not use a regular for loop!
-    for (let i = 0; i < 15; i++) {
-        let video = generateSearchResultCard({ index: i, thumbnailURL: thumbnail, title, description });
-
-        searchResults.appendChild(video);
-    }
+    videoArray.fill(fakeData.items[0]);
+    searchResults.innerHTML = generateSearchResultCards(videoArray).join('');
 
     addHomePageListeners();
 }
