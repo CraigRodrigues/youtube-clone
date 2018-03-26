@@ -1,5 +1,7 @@
 'use strict';
 
+let videos = [];
+
 const clearHTML = () => {
     document.getElementById('search-results').innerHTML = '';
     document.getElementById('video-page').innerHTML = '';
@@ -42,7 +44,7 @@ const addHomePageListeners = () => {
     // you will need modify this listener to correctly use renderVideoPage
     searchResults.addEventListener('click', function(event) {
         if (event.target.className === 'thumbnail' || event.target.className === 'title') {
-            renderVideoPage();
+            renderVideoPage(event.target.parentElement.id);
         }
     });
 }
@@ -66,7 +68,10 @@ const searchYoutube = (query) => {
     // fetch search results from youtube! Make sure to use your API key.
     fetch(`https://www.googleapis.com/youtube/v3/search?q=${query}&maxResults=15&part=snippet&key=${API_KEY}`)
         .then(res => res.json())
-        .then(data => renderHomePage(query, data.items))
+        .then(data => {
+            videos = data.items;
+            renderHomePage(query, data.items)
+        })
         .catch(err => console.error(err));
 }
 
@@ -81,12 +86,15 @@ const renderVideoPage = (index) => {
     // it is good practice to remove event listeners if the element is just hidden
     // document.querySelector('input').removeEventListener('keypress', func);
 
-    let url = 'http://www.youtube.com/embed/xLvkFer6aOY';
-    let title = 'Title';
-    let channel = 'Channel';
-    let description = 'Thor: Ragnarok Darryl Short - Grandmaster Moves To Earth (2017) Jeff Goldblum Movie HD Subscribe for more official Trailers, TV Spots, Movie Clips, Featurettes and exclusive content!';
+    let video = videos[index];
+    let videoObj = {
+        url: `http://www.youtube.com/embed/${video.id.videoId}`,
+        title: video.snippet.title,
+        channel: video.snippet.channelTitle,
+        description: video.snippet.description
+    }
     
-    document.getElementById('video-page').innerHTML = generateVideoPageHTML({ url, title, channel, description });
+    document.getElementById('video-page').innerHTML = generateVideoPageHTML(videoObj);
     addVideoPageListeners();
 }
 
