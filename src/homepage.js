@@ -2,7 +2,7 @@ import API_KEY from './config.js';
 import clearHTML from './utils.js';
 import renderVideoPage from './videopage.js';
 
-export let videos = [];
+let videos = [];
 
 const generateSearchResultCards = (videos) => {
     return videos.map((video, index) => {
@@ -16,9 +16,21 @@ const generateSearchResultCards = (videos) => {
     }).join('');
 };
 
-export function handleEnter(event) {
+const searchYoutube = (query = '') => {
+    // fetch search results from youtube! Make sure to use your API key.
+    return fetch(`https://www.googleapis.com/youtube/v3/search?q=${query}&maxResults=15&part=snippet&key=${API_KEY}`)
+        .then((res) => res.json())
+        .then((data) => {
+            videos = data.items;
+
+            return data.items;
+        })
+        .catch((err) => console.error(err));
+};
+
+const handleEnter = (event) => {
     if (event.which === 13) {
-        searchYoutube(event.target.value);
+        searchYoutube(event.target.value).then((videos) => renderHomePage(videos));
     }
 };
 
@@ -43,7 +55,7 @@ const addHomePageListeners = () => {
     });
 };
 
-const renderHomePage = (query, searchResults) => {
+const renderHomePage = (searchResults) => {
     clearHTML();
 
     // show search bar and results
@@ -55,13 +67,4 @@ const renderHomePage = (query, searchResults) => {
     addHomePageListeners();
 };
 
-export function searchYoutube(query = '') {
-    // fetch search results from youtube! Make sure to use your API key.
-    fetch(`https://www.googleapis.com/youtube/v3/search?q=${query}&maxResults=15&part=snippet&key=${API_KEY}`)
-        .then((res) => res.json())
-        .then((data) => {
-            videos = data.items;
-            renderHomePage(query, data.items);
-        })
-        .catch((err) => console.error(err));
-};
+export { handleEnter, searchYoutube, renderHomePage, videos };

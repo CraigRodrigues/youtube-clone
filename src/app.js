@@ -1,3 +1,3 @@
-import {searchYoutube} from './homepage.js';
+import { searchYoutube, renderHomePage, videos } from './homepage.js';
 
-searchYoutube();
+searchYoutube().then((videos) => renderHomePage(videos));

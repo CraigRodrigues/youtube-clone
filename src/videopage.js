@@ -1,5 +1,5 @@
 import clearHTML from './utils.js';
-import {searchYoutube, handleEnter, videos} from './homepage.js';
+import { renderHomePage, handleEnter, videos } from './homepage.js';
 
 const generateVideoPageHTML = ({ url, title, channel, description }) => {
     return `
@@ -14,11 +14,7 @@ const generateVideoPageHTML = ({ url, title, channel, description }) => {
 };
 
 const addVideoPageListeners = () => {
-    document.getElementById('home-button').addEventListener('click', (event) => {
-        let query = document.querySelector('input').value;
-
-        searchYoutube(query);
-    });
+    document.getElementById('home-button').addEventListener('click', (event) => renderHomePage(videos));
 };
 
 // you will need to edit this function to make use of an index
