@@ -27,7 +27,7 @@ const generateSearchResultCards = (videos) => {
                 <div class="description">${video.snippet.description}</div>
             </div>
         `;
-    });
+    }).join('');
 };
 
 const generateVideoPageHTML = ({ url, title, channel, description }) => {
@@ -83,7 +83,8 @@ const renderHomePage = (query, searchResults) => {
     // show search bar and results
     document.getElementById('search-bar').style.display = 'flex';
     document.getElementById('search-results').style.display = 'grid';
-    document.getElementById('search-results').innerHTML = generateSearchResultCards(searchResults).join('');
+    document.getElementById('search-results').innerHTML = generateSearchResultCards(searchResults);
+    window.scrollTo(0,0);
 
     addHomePageListeners();
 };
@@ -109,6 +110,7 @@ const renderVideoPage = (index) => {
     };
 
     document.getElementById('video-page').innerHTML = generateVideoPageHTML(videoObj);
+    window.scrollTo(0,100);
     addVideoPageListeners();
 };
 
