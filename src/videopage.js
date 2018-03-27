@@ -1,5 +1,5 @@
 import { clearHTML } from './utils.js';
-import { renderHomePage, handleEnter } from './homepage.js';
+import { homepage } from './homepage.js';
 
 const generateVideoPageHTML = ({ url, title, channel, description }) => {
     return `
@@ -14,7 +14,7 @@ const generateVideoPageHTML = ({ url, title, channel, description }) => {
 };
 
 const addVideoPageListeners = () => {
-    document.getElementById('home-button').addEventListener('click', (event) => renderHomePage(videos));
+    document.getElementById('home-button').addEventListener('click', (event) => homepage.render());
 };
 
 // you will need to edit this function to make use of an index
@@ -24,10 +24,6 @@ const renderVideoPage = (video) => {
     // hide search bar and search results
     document.getElementById('search-bar').style.display = 'none';
     document.getElementById('search-results').style.display = 'none';
-
-    // it is good practice to remove event listeners if the element is just hidden
-    // or remove element entirely, rather than hiding
-    document.querySelector('input').removeEventListener('keydown', handleEnter);
 
     let videoObj = {
         url: `http://www.youtube.com/embed/${video.id.videoId}`,
