@@ -1,10 +1,10 @@
 import { clearHTML, searchYoutube, currentVideos } from './utils.js';
-import renderVideoPage from './videopage.js';
+import { videopage } from './videopage.js';
 
 class HomePage {
     constructor() {
         document.getElementById('logo').addEventListener('click', (event) => this.render());
-        document.querySelector('input').addEventListener('keydown', this.handleEnter);
+        document.querySelector('input').addEventListener('keydown', (event) => this.handleEnter(event));
     }
 
     generateSearchResultCards(videos) {
@@ -28,11 +28,11 @@ class HomePage {
     addListeners() {
         const searchResults = document.getElementById('search-results');
     
-        searchResults.addEventListener('click', function(event) {
+        searchResults.addEventListener('click', (event) => {
             if (event.target.className === 'thumbnail' || event.target.className === 'title') {
                 let video = currentVideos[event.target.parentElement.id];
     
-                renderVideoPage(video);
+                videopage.render(video);
             }
         });
     }
