@@ -30,7 +30,6 @@ const addHomePageListeners = () => {
     // you will need modify this listener to correctly use renderVideoPage
     searchResults.addEventListener('click', function(event) {
         if (event.target.className === 'thumbnail' || event.target.className === 'title') {
-            debugger;
             let video = currentVideos[event.target.parentElement.id];
 
             renderVideoPage(video);
@@ -39,7 +38,6 @@ const addHomePageListeners = () => {
 };
 
 const renderHomePage = (searchResults = currentVideos) => {
-    debugger;
     clearHTML();
 
     // show search bar and results
