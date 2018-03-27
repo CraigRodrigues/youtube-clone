@@ -1,8 +1,5 @@
-import API_KEY from './config.js';
-import clearHTML from './utils.js';
+import { clearHTML, searchYoutube, currentVideos } from './utils.js';
 import renderVideoPage from './videopage.js';
-
-let videos = [];
 
 const generateSearchResultCards = (videos) => {
     return videos.map((video, index) => {
@@ -16,18 +13,6 @@ const generateSearchResultCards = (videos) => {
     }).join('');
 };
 
-const searchYoutube = (query = '') => {
-    // fetch search results from youtube! Make sure to use your API key.
-    return fetch(`https://www.googleapis.com/youtube/v3/search?q=${query}&maxResults=15&part=snippet&key=${API_KEY}`)
-        .then((res) => res.json())
-        .then((data) => {
-            videos = data.items;
-
-            return data.items;
-        })
-        .catch((err) => console.error(err));
-};
-
 const handleEnter = (event) => {
     if (event.which === 13) {
         searchYoutube(event.target.value).then((videos) => renderHomePage(videos));
@@ -39,23 +24,22 @@ const addHomePageListeners = () => {
     const searchInput = document.querySelector('input');
     const logo = document.getElementById('logo');
 
-    logo.addEventListener('click', (event) => {
-        let query = document.querySelector('input').value;
-
-        searchYoutube(query);
-    });
-
+    logo.addEventListener('click', (event) => renderHomePage());
     searchInput.addEventListener('keydown', handleEnter);
 
     // you will need modify this listener to correctly use renderVideoPage
     searchResults.addEventListener('click', function(event) {
         if (event.target.className === 'thumbnail' || event.target.className === 'title') {
-            renderVideoPage(event.target.parentElement.id);
+            debugger;
+            let video = currentVideos[event.target.parentElement.id];
+
+            renderVideoPage(video);
         }
     });
 };
 
-const renderHomePage = (searchResults) => {
+const renderHomePage = (searchResults = currentVideos) => {
+    debugger;
     clearHTML();
 
     // show search bar and results
@@ -67,4 +51,4 @@ const renderHomePage = (searchResults) => {
     addHomePageListeners();
 };
 
-export { handleEnter, searchYoutube, renderHomePage, videos };
+export { handleEnter, renderHomePage };

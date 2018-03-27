@@ -1,5 +1,5 @@
-import clearHTML from './utils.js';
-import { renderHomePage, handleEnter, videos } from './homepage.js';
+import { clearHTML } from './utils.js';
+import { renderHomePage, handleEnter } from './homepage.js';
 
 const generateVideoPageHTML = ({ url, title, channel, description }) => {
     return `
@@ -18,7 +18,7 @@ const addVideoPageListeners = () => {
 };
 
 // you will need to edit this function to make use of an index
-const renderVideoPage = (index) => {
+const renderVideoPage = (video) => {
     clearHTML();
 
     // hide search bar and search results
@@ -29,7 +29,6 @@ const renderVideoPage = (index) => {
     // or remove element entirely, rather than hiding
     document.querySelector('input').removeEventListener('keydown', handleEnter);
 
-    let video = videos[index];
     let videoObj = {
         url: `http://www.youtube.com/embed/${video.id.videoId}`,
         title: video.snippet.title,
