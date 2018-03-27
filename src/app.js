@@ -4,11 +4,12 @@ let videos = [];
 
 function searchYoutube(query = '') {
     // fetch search results from youtube! Make sure to use your API key.
-    fetch(`https://www.googleapis.com/youtube/v3/search?q=${query}&maxResults=15&part=snippet&key=${API_KEY}`)
+    return fetch(`https://www.googleapis.com/youtube/v3/search?q=${query}&maxResults=15&part=snippet&key=${API_KEY}`)
         .then((res) => res.json())
         .then((data) => {
             videos = data.items;
-            renderHomePage(query, data.items);
+
+            return videos;
         })
         .catch((err) => console.error(err));
 }
@@ -44,7 +45,7 @@ const generateVideoPageHTML = ({ url, title, channel, description }) => {
 
 const handleEnter = (event) => {
     if (event.which === 13) {
-        searchYoutube(event.target.value);
+        searchYoutube(event.target.value).then(videos => renderHomePage(videos));
     }
 };
 
@@ -56,7 +57,7 @@ const addHomePageListeners = () => {
     logo.addEventListener('click', (event) => {
         let query = document.querySelector('input').value;
 
-        searchYoutube(query);
+        searchYoutube(query).then(videos => renderHomePage(videos));
     });
 
     searchInput.addEventListener('keydown', handleEnter);
@@ -73,11 +74,11 @@ const addVideoPageListeners = () => {
     document.getElementById('home-button').addEventListener('click', (event) => {
         let query = document.querySelector('input').value;
 
-        searchYoutube(query);
+        searchYoutube(query).then(videos => renderHomePage(videos));
     });
 };
 
-const renderHomePage = (query, searchResults) => {
+const renderHomePage = (searchResults = videos) => {
     clearHTML();
 
     // show search bar and results
@@ -115,4 +116,4 @@ const renderVideoPage = (index) => {
 };
 
 // start on the homepage
-searchYoutube();
+searchYoutube().then(videos => renderHomePage(videos));
