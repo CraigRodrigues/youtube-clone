@@ -1,5 +1,7 @@
 'use strict';
 
+import API_KEY from './config.js';
+
 let videos = [];
 
 function searchYoutube(query = '') {
