@@ -2,7 +2,7 @@ import API_KEY from './config.js';
 import clearHTML from './utils.js';
 import renderVideoPage from './videopage.js';
 
-let videos = [];
+export let videos = [];
 
 const generateSearchResultCards = (videos) => {
     return videos.map((video, index) => {

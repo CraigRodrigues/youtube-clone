@@ -1,5 +1,5 @@
 import clearHTML from './utils.js';
-import {searchYoutube} from './homepage.js';
+import {searchYoutube, handleEnter, videos} from './homepage.js';
 
 const generateVideoPageHTML = ({ url, title, channel, description }) => {
     return `
