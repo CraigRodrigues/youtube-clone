@@ -20,12 +20,12 @@ const clearHTML = () => {
 };
 
 const generateSearchResultCards = (videos) => {
-    return videos.map((video, index) => {
+    return videos.map(({snippet}, index) => {
         return `
             <div id="${index}" class="video-result">
-                <img src="${video.snippet.thumbnails.medium.url}" class="thumbnail">
-                <div class="title">${video.snippet.title}</div>
-                <div class="description">${video.snippet.description}</div>
+                <img src="${snippet.thumbnails.medium.url}" class="thumbnail">
+                <div class="title">${snippet.title}</div>
+                <div class="description">${snippet.description}</div>
             </div>
         `;
     }).join('');
