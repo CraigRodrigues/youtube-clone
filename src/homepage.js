@@ -7,7 +7,7 @@ class HomePage {
         document.querySelector('input').addEventListener('keydown', (event) => this.handleEnter(event));
     }
 
-    generateSearchResultCards(videos) {
+    template(videos) {
         return videos.map((video, index) => {
             return `
                 <div id="${index}" class="video-result">
@@ -43,7 +43,7 @@ class HomePage {
         // show search bar and results
         document.getElementById('search-bar').style.display = 'flex';
         document.getElementById('search-results').style.display = 'grid';
-        document.getElementById('search-results').innerHTML = this.generateSearchResultCards(searchResults);
+        document.getElementById('search-results').innerHTML = this.template(searchResults);
         window.scrollTo(0,0);
     
         this.addListeners();

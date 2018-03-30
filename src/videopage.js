@@ -2,7 +2,7 @@ import { clearHTML } from './utils.js';
 import { homepage } from './homepage.js';
 
 class VideoPage {
-    generateVideoPageHTML({ url, title, channel, description }) {
+    template({ url, title, channel, description }) {
         return `
             <iframe width="608" height="342" src="${url}"></iframe>
             <div id="video-info">
@@ -32,7 +32,7 @@ class VideoPage {
             description: video.snippet.description
         };
     
-        document.getElementById('video-page').innerHTML = this.generateVideoPageHTML(videoObj);
+        document.getElementById('video-page').innerHTML = this.template(videoObj);
         window.scrollTo(0,100);
         this.addListeners();
     }
