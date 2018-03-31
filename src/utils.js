@@ -7,15 +7,21 @@ const clearHTML = () => {
     document.getElementById('video-page').innerHTML = '';
 };
 
-const searchYoutube = (query = '') => {
-    return fetch(`https://www.googleapis.com/youtube/v3/search?q=${query}&maxResults=15&part=snippet&key=${API_KEY}`)
-        .then((res) => res.json())
-        .then((data) => {
-            currentVideos = data.items;
+const searchYoutube = async (query = '') => {
+    let data = null;
+    let url = 
+        `https://www.googleapis.com/youtube/v3/search?q=${query}` +
+        `&maxResults=15&part=snippet&key=${API_KEY}`;
 
-            return currentVideos;
-        })
-        .catch((err) => console.error(err));
+    try {
+        data = await (await fetch(url)).json();
+    } catch (e) {
+        console.error(e);
+    };
+
+    currentVideos = data.items;
+
+    return currentVideos;
 };
 
 export { clearHTML, searchYoutube, currentVideos };
